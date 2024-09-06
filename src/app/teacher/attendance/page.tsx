@@ -2,22 +2,46 @@
 
 import generateCode from "@/api/generate-code";
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {QRCodeSVG} from 'qrcode.react';
 
 function Attendace() {
-  const [code, setCode] = useState("");
+  const [codeData, setCodeData] = useState<{ code: string, timestamp: number } | null>(null);
 
   const onClickHandler = () => {
-    setCode(generateCode());
+    setCodeData(generateCode());
   };
+
+  const isCodeValid = () => {
+    if (!codeData) return false;
+    const currentTime = Date.now();
+    const elapsedTime = (currentTime - codeData.timestamp) / 1000;
+    return elapsedTime <= 120; // Code is valid for 120 seconds (2 minutes)
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (codeData && !isCodeValid()) {
+        setCodeData(null); // Expire the code after 2 minutes
+      }
+    }, 1000); // Check every second for code expiration
+
+    return () => clearInterval(interval);
+  }, [codeData]);
+
 
   return (
     <div className="h-screen w-full">
-      <div className="flex flex-col gap-10 h-full justify-center items-center">
-        <Button variant={"secondary"} onClick={onClickHandler}>Generate Code</Button>
-        <QRCodeSVG value='{code}' bgColor="#000" fgColor="#fff" size={250} />
-        <h2 className="text-2xl font-bold">{code}</h2>
+      <div className="flex flex-col gap-5 h-full justify-center items-center">
+        <Button onClick={onClickHandler}>Generate Code</Button>
+        {codeData && isCodeValid() ? (
+          <>
+            <h2>{codeData.code}</h2>
+            <QRCodeSVG value='{code}' bgColor="#000" fgColor="#fff" size={250} />
+          </>
+        ) : (
+          <h2>Code expired or not generated</h2>
+        )}
       </div>
     </div>
   );
