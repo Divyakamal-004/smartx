@@ -6,7 +6,7 @@ function Teacher() {
   return (
     <div className="h-full w-full">
       <div className="flex flex-col gap-5 m-10  justify-center items-center">
-      Student
+      Teacher 
       </div>
       <div className="flex flex-col gap-5 justify-center items-center m-center h-[70vh] ">
         <Button><Link href={"/teacher/attendance"}>Attendace</Link></Button>

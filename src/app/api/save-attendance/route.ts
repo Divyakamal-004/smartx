@@ -15,7 +15,6 @@ export async function POST(req: NextRequest) {
         expiryTime,
       },
     });
-    console.log(attendance)
     return NextResponse.json({ attendance }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Failed to save attendance" }, { status: 500 });
