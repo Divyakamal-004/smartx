@@ -1,15 +1,28 @@
 "use client";
 
-import generateCode from "@/api/generate-code";
+import generateCode from "@/app/api/generate-code/generate-code";
 import { Button } from "@/components/ui/button";
 import React, { useEffect, useState } from "react";
-import {QRCodeSVG} from 'qrcode.react';
+import { QRCodeSVG } from 'qrcode.react';
+import axios from 'axios';
 
-function Attendace() {
+function Attendance() {
   const [codeData, setCodeData] = useState<{ code: string, timestamp: number } | null>(null);
 
-  const onClickHandler = () => {
-    setCodeData(generateCode());
+  const onClickHandler = async () => {
+    const generatedCode = generateCode();
+    setCodeData(generatedCode);
+
+    try {
+      // Send generated code to the server
+      await axios.post('/api/save-attendance', {
+        code: generatedCode.code,
+        expiryTime: 120,       // Set expiry time to 120 seconds
+      });
+      console.log("Code saved to the database");
+    } catch (error) {
+      console.error("Error saving code", error);
+    }
   };
 
   const isCodeValid = () => {
@@ -29,7 +42,6 @@ function Attendace() {
     return () => clearInterval(interval);
   }, [codeData]);
 
-
   return (
     <div className="h-screen w-full">
       <div className="flex flex-col gap-5 h-full justify-center items-center">
@@ -37,7 +49,7 @@ function Attendace() {
         {codeData && isCodeValid() ? (
           <>
             <h2>{codeData.code}</h2>
-            <QRCodeSVG value='{code}' bgColor="#000" fgColor="#fff" size={250} />
+            <QRCodeSVG value={codeData.code} bgColor="#000" fgColor="#fff" size={250} />
           </>
         ) : (
           <h2>Code expired or not generated</h2>
@@ -47,4 +59,4 @@ function Attendace() {
   );
 }
 
-export default Attendace;
+export default Attendance;

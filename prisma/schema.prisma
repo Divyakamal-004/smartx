@@ -18,17 +18,12 @@ model User {
   name      String?
   role      Role       @default(Student) // Assigns a role from the Roll enum, default is Student
 
-  // Relation to attendance records as a teacher
-  dayAttendancesTaken DayAttendance[] @relation("teacher")
-
   // Many-to-many relation between students and attendance through StudentAttendance
   attendances StudentAttendance[]
 }
 
 model DayAttendance {
   id            Int      @id @default(autoincrement())
-  teacher       User     @relation("teacher", fields: [teacherId], references: [id])
-  teacherId     Int
   date          DateTime
   code          Int
   expiryTime    Int
