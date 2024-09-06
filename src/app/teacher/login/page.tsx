@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 import React from 'react'
 
 function Teacher() {
@@ -8,7 +9,7 @@ function Teacher() {
       Student
       </div>
       <div className="flex flex-col gap-5 justify-center items-center m-center h-[70vh] ">
-        <Button>Attendace</Button>
+        <Button><Link href={"/teacher/attendance"}>Attendace</Link></Button>
         <Button>Routine</Button>
         <Button>Notes Share</Button>
       </div>
