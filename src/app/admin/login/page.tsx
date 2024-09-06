@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import React from 'react'
 
-function Teacher() {
+function Management() {
   return (
     <div className="h-full w-full">
       <div className="flex flex-col gap-5 m-10  justify-center items-center">
@@ -9,11 +9,12 @@ function Teacher() {
       </div>
       <div className="flex flex-col gap-5 justify-center items-center m-center h-[70vh] ">
         <Button>Attendace</Button>
-        <Button>Routine</Button>
-        <Button>Notes Share</Button>
+        <Button>Student Database</Button>
+        <Button>Emergency Alert</Button>
+        
       </div>
     </div>
   )
 }
 
-export default Teacher
+export default Management

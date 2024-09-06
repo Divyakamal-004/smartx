@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  name      String?
+  role      Role       @default(Student) // Assigns a role from the Roll enum, default is Student
+
+  // Relation to attendance records as a teacher
+  dayAttendancesTaken DayAttendance[] @relation("teacher")
+
+  // Many-to-many relation between students and attendance through StudentAttendance
+  attendances StudentAttendance[]
+}
+
+model DayAttendance {
+  id            Int      @id @default(autoincrement())
+  teacher       User     @relation("teacher", fields: [teacherId], references: [id])
+  teacherId     Int
+  date          DateTime
+  code          Int
+  expiryTime    Int
+
+  // Many-to-many relation to students through StudentAttendance
+  studentsPresent StudentAttendance[]
+}
+
+model StudentAttendance {
+  studentId      Int
+  attendanceId   Int
+  student        User          @relation(fields: [studentId], references: [id])
+  attendance     DayAttendance @relation(fields: [attendanceId], references: [id])
+
+  @@id([studentId, attendanceId]) // Composite primary key
+}
+
+enum Role {
+  Teacher
+  Student
+  Admin
+}

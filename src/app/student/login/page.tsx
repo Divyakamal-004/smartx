@@ -1,11 +1,20 @@
-import React from 'react'
+import { sql } from "@vercel/postgres";
 
-function Student() {
+export default async function Cart({
+  params
+} : {
+  params: { user: string }
+}): Promise<JSX.Element> {
+  const { rows } = await sql``;
+  console.log(rows)
+
   return (
     <div>
-      Student
+      {rows.map((row) => (
+        <div key={row.id}>
+          {row.id} - {row.name}
+        </div>
+      ))}
     </div>
-  )
+  );
 }
-
-export default Student
