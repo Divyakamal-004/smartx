@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,10 +15,24 @@ function GeminiChat() {
   const [conversation, setConversation] = useState<Conversation[]>([]);
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    // Fetch previously saved conversations on load
+    const fetchConversations = async () => {
+      try {
+        const response = await axios.get("/api/gemini/conversations");
+        setConversation(response.data);
+      } catch (err) {
+        console.error("Error fetching conversations:", err);
+      }
+    };
+
+    fetchConversations();
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!message.trim()) return; // prevent empty submissions
+    if (!message.trim()) return;
 
     try {
       const response = await axios.post("/api/gemini", { message });
@@ -26,8 +40,8 @@ function GeminiChat() {
 
       // Add the new prompt and reply to the conversation log
       setConversation([...conversation, { prompt: message, reply }]);
-      setMessage(""); // Clear the input
-      setError(""); // Reset any previous errors
+      setMessage("");
+      setError("");
     } catch (err) {
       setError("Failed to communicate with the chatbot.");
     }

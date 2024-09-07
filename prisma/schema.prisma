@@ -43,6 +43,12 @@ model StudentAttendance {
   @@id([studentId, attendanceId]) // Composite primary key
 }
 
+model Conversation {
+  id        Int      @id @default(autoincrement())
+  prompt    String
+  createdAt DateTime @default(now())
+}
+
 enum Role {
   Teacher
   Student
