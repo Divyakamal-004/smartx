@@ -12,6 +12,7 @@ function Management() {
       </div>
       <div className="flex flex-col gap-5 justify-center items-center m-center h-[70vh] ">
         <Button variant={"outline"} className='w-1/4'><Link href={"/admin/students"}>Student List</Link></Button>
+        <Button variant={"outline"} className='w-1/4'><Link href={"/admin/alert"}>Emergency Alert</Link></Button>
       </div>
     </div>
   )
