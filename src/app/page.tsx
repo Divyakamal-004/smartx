@@ -35,13 +35,13 @@ export default function Home() {
         </div>
       </div>
       <div className="flex flex-col gap-10 justify-center items-center m-center h-[70vh] ">
-        <Button variant={"outline"} onClick={onClickHandler}>
+        <Button variant={"outline"} className='w-1/4' onClick={onClickHandler}>
           <Link href="/student/login"> Login as Student</Link>
         </Button>
-        <Button variant={"outline"}>
+        <Button variant={"outline"} className='w-1/4'>
           <Link href="/teacher/login"> Login as Teacher</Link>
         </Button>
-        <Button variant={"outline"}>
+        <Button variant={"outline"} className='w-1/4'>
           <Link href="/management/login"> Login as Management</Link>
         </Button>
       </div>
