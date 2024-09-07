@@ -29,16 +29,16 @@ function VerifyAttendance() {
           placeholder="Student ID"
           value={studentId}
           onChange={(e) => setStudentId(e.target.value)}
-          className="text-zinc-800 p-2 rounded-lg"
+          className="text-zinc-800 p-2 w-1/4 rounded-lg"
         />
         <input
           type="text"
           placeholder="Attendance Code"
           value={code}
           onChange={(e) => setCode(e.target.value)}
-          className="text-zinc-800 p-2 rounded-lg"
+          className="text-zinc-800 w-1/4 p-2 rounded-lg"
         />
-        <Button variant={"secondary"} onClick={handleSubmit}>Verify Attendance</Button>
+        <Button className="w-1/4" variant={"secondary"} onClick={handleSubmit}>Verify Attendance</Button>
         {message && <p>{message}</p>}
       </div>
     </div>
