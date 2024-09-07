@@ -42,6 +42,7 @@ export async function POST(req: NextRequest) {
       data: {
         studentId: parseInt(studentId),
         attendanceId: attendance.id,
+        isPresent: true,
       },
     });
 
