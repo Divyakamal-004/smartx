@@ -8,37 +8,37 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
-  name      String?
-  role      Role       @default(Student) // Assigns a role from the Roll enum, default is Student
+  id   Int     @id @default(autoincrement())
+  name String?
+  role Role    @default(Student) // Assigns a role from the Roll enum, default is Student
 
   // Many-to-many relation between students and attendance through StudentAttendance
   attendances StudentAttendance[]
 }
 
 model DayAttendance {
-  id            Int      @id @default(autoincrement())
-  date          DateTime
-  code          Int
-  expiryTime    Int
+  id         Int      @id @default(autoincrement())
+  date       DateTime
+  code       Int
+  expiryTime Int
 
   // Many-to-many relation to students through StudentAttendance
   studentsPresent StudentAttendance[]
 }
 
 model StudentAttendance {
-  studentId      Int
-  date           DateTime @default(now()) // Automatically sets the current date and time
-  isPresent      Boolean
-  attendanceId   Int
-  student        User          @relation(fields: [studentId], references: [id])
-  attendance     DayAttendance @relation(fields: [attendanceId], references: [id])
+  studentId    Int
+  date         DateTime      @default(now()) // Automatically sets the current date and time
+  isPresent    Boolean
+  attendanceId Int
+  student      User          @relation(fields: [studentId], references: [id])
+  attendance   DayAttendance @relation(fields: [attendanceId], references: [id])
 
   @@id([studentId, attendanceId]) // Composite primary key
 }
@@ -46,6 +46,12 @@ model StudentAttendance {
 model Conversation {
   id        Int      @id @default(autoincrement())
   prompt    String
+  createdAt DateTime @default(now())
+}
+
+model Notes {
+  id        Int      @id @default(autoincrement())
+  noteslink String
   createdAt DateTime @default(now())
 }
 
