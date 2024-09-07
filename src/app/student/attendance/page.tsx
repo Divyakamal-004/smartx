@@ -15,8 +15,7 @@ function VerifyAttendance() {
         studentId: parseInt(studentId),
         code: parseInt(code),
       });
-
-      setMessage(response.data.success || response.data.error);
+      setMessage(response.data.success ||response.data.error);
     } catch (error) {
       setMessage("Error verifying attendance");
     }
