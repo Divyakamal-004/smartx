@@ -5,13 +5,13 @@ import React from 'react'
 function Teacher() {
   return (
     <div className="h-full w-full">
-      <div className="flex flex-col gap-5 m-10  justify-center items-center">
+      <div className="flex flex-col gap-5 m-10 text-5xl uppercase font-bold justify-center items-center">
       Teacher 
       </div>
       <div className="flex flex-col gap-5 justify-center items-center m-center h-[70vh] ">
-        <Button><Link href={"/teacher/attendance"}>Attendace</Link></Button>
-        <Button>Routine</Button>
-        <Button>Notes Share</Button>
+        <Button variant={"outline"}><Link href={"/teacher/attendance"}>Attendace</Link></Button>
+        <Button variant={"outline"}>Routine</Button>
+        <Button variant={"outline"}>Notes Share</Button>
       </div>
     </div>
   )

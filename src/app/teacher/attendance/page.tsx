@@ -17,7 +17,7 @@ function Attendance() {
       // Send generated code to the server
       await axios.post('/api/save-attendance', {
         code: generatedCode.code,
-        expiryTime: 120,       // Set expiry time to 120 seconds
+        expiryTime: 120,       
       });
       console.log("Code saved to the database");
     } catch (error) {

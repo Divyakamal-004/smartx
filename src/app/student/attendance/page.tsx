@@ -1,7 +1,8 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import axios from "axios";
+import { Button } from "@/components/ui/button";
 
 function VerifyAttendance() {
   const [studentId, setStudentId] = useState("");
@@ -10,7 +11,7 @@ function VerifyAttendance() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('/api/verify-attendance', {
+      const response = await axios.post("/api/verify-attendance", {
         studentId: parseInt(studentId),
         code: parseInt(code),
       });
@@ -22,23 +23,25 @@ function VerifyAttendance() {
   };
 
   return (
-    <div className="verify-attendance">
-      <input
-        type="text"
-        placeholder="Student ID"
-        value={studentId}
-        onChange={(e) => setStudentId(e.target.value)}
-        className="text-zinc-800"
+    <div className="verify-attendance h-full w-full">
+      <div className="flex flex-col gap-5 justify-center items-center h-screen">
+        <input
+          type="text"
+          placeholder="Student ID"
+          value={studentId}
+          onChange={(e) => setStudentId(e.target.value)}
+          className="text-zinc-800 p-2 rounded-lg"
         />
-      <input
-        type="text"
-        placeholder="Attendance Code"
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
-        className="text-zinc-800"
-      />
-      <button onClick={handleSubmit}>Verify Attendance</button>
-      {message && <p>{message}</p>}
+        <input
+          type="text"
+          placeholder="Attendance Code"
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+          className="text-zinc-800 p-2 rounded-lg"
+        />
+        <Button variant={"secondary"} onClick={handleSubmit}>Verify Attendance</Button>
+        {message && <p>{message}</p>}
+      </div>
     </div>
   );
 }

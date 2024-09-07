@@ -1,18 +1,17 @@
-// /src/app/api/save-attendance/route.ts
 import { PrismaClient } from '@prisma/client';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 const prisma = new PrismaClient();
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   const { code, expiryTime } = await req.json();
-  
+  const newCode = Number(code)
   try {
     const attendance = await prisma.dayAttendance.create({
       data: {
         date: new Date(),
-        code,
-        expiryTime,
+        code: newCode,
+        expiryTime: expiryTime,
       },
     });
     return NextResponse.json({ attendance }, { status: 200 });
