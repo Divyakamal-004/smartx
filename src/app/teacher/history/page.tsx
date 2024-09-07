@@ -1,6 +1,16 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
 
 export default function History() {
   const [prompts, setPrompts] = useState<string[]>([]);
@@ -35,17 +45,25 @@ export default function History() {
   }
 
   return (
-    <div className="h-screen w-full">
       <div className="flex pt-32 items-center flex-col h-full gap-10 ">
-        <h1 className="text-4xl font-bold uppercase ">Prompt History</h1>
-          <ol className="text-lg w-1/3 list-decimal">
-            {prompts.map((prompt, index) => (
-              <li key={index}>
-                {prompt}
-              </li>
-            ))}
-          </ol>
-      </div>
+        <h1 className="text-4xl font-bold uppercase ">Chatbot History</h1>
+      <Table>
+        <TableCaption>A list of your recent chatbot prompts.</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[100px]">Prompt ID</TableHead>
+            <TableHead>Prompt</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {prompts.map((prompt, index) => (
+            <TableRow key={index}>
+              <TableCell className="font-medium">{index + 1}</TableCell>
+              <TableCell>{prompt}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </div>
   );
 }

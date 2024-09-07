@@ -9,12 +9,12 @@ export default function Home() {
   const [message, setMessage] = useState("");
 
   //todo while auth
-  const studentId = "123456";
+  const studentId = "654321";
   const onClickHandler = async () => {
     try {
       const response = await axios.post("/api/create-student", {
         //todo while auth
-        name: "John Doe",
+        name: "Ujjwal Kumar",
         studentId: parseInt(studentId),
       });
       setMessage(response.data.success || response.data.error);
@@ -42,7 +42,7 @@ export default function Home() {
           <Link href="/teacher/login"> Login as Teacher</Link>
         </Button>
         <Button variant={"outline"} className='w-1/4'>
-          <Link href="/management/login"> Login as Management</Link>
+          <Link href="/admin/login"> Login as Admin</Link>
         </Button>
       </div>
     </div>
