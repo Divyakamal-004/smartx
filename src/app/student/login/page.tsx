@@ -10,7 +10,7 @@ function Teacher() {
       </div>
       <div className="flex flex-col gap-5 justify-center items-center m-center h-[70vh] ">
         <Button variant={"outline"}><Link href={"/student/attendance"}>Attendance</Link></Button>
-        <Button variant={"outline"}>Routine</Button>
+        <Button variant={"outline"}><Link href={"/student/chatbot"}>Chatbot</Link></Button>
         <Button variant={"outline"}>Notes Share</Button>
       </div>
     </div>
