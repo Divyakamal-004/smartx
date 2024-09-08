@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button";
 import axios from "axios";
@@ -18,7 +18,7 @@ export default function Home() {
         studentId: parseInt(studentId),
       });
       setMessage(response.data.success || response.data.error);
-      console.log(message)
+      console.log(message);
     } catch (error) {
       console.log("Error logging in");
     }
@@ -35,15 +35,25 @@ export default function Home() {
         </div>
       </div>
       <div className="flex flex-col gap-10 justify-center items-center m-center h-[70vh] ">
-        <Button variant={"outline"} className='w-1/4' onClick={onClickHandler}>
-          <Link href="/student/login"> Login as Student</Link>
-        </Button>
-        <Button variant={"outline"} className='w-1/4'>
-          <Link href="/teacher/login"> Login as Teacher</Link>
-        </Button>
-        <Button variant={"outline"} className='w-1/4'>
-          <Link href="/admin/login"> Login as Admin</Link>
-        </Button>
+        <Link href="/student/login" className="w-max">
+          <Button
+            variant={"outline"}
+            className="min-w-60"
+            onClick={onClickHandler}
+          >
+            Login as Student
+          </Button>
+        </Link>
+        <Link href="/teacher/login" className="w-max">
+          <Button variant={"outline"} className="min-w-60">
+            Login as Teacher
+          </Button>
+        </Link>
+        <Link href="/admin/login" className="w-max">
+          <Button variant={"outline"} className="min-w-60">
+            Login as Admin
+          </Button>
+        </Link>
       </div>
     </div>
   );
